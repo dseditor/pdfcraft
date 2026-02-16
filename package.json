@@ -11,7 +11,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "postinstall": "node scripts/sync-pdfjs-workers.js"
+    "postinstall": "node scripts/sync-pdfjs-workers.js",
+    "sync:zh-tw": "node scripts/sync-zh-tw.cjs",
+    "sync:zh-tw:full": "node scripts/sync-zh-tw.cjs --full"
   },
   "dependencies": {
     "@matbee/libreoffice-converter": "^2.5.0",
@@ -57,6 +59,7 @@
     "fake-indexeddb": "^6.2.5",
     "fast-check": "^3.22.0",
     "jsdom": "^25.0.1",
+    "opencc-js": "^1.0.5",
     "postcss": "^8.4.47",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.6.3",
