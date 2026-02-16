@@ -12,8 +12,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "postinstall": "node scripts/sync-pdfjs-workers.js",
-    "sync:zh-tw": "node scripts/sync-zh-tw.cjs",
-    "sync:zh-tw:full": "node scripts/sync-zh-tw.cjs --full"
+    "sync:zh-tw": "node scripts/sync-zh-tw.cjs && node scripts/gen-zh-tw-tool-content.cjs",
+    "sync:zh-tw:full": "node scripts/sync-zh-tw.cjs --full && node scripts/gen-zh-tw-tool-content.cjs"
   },
   "dependencies": {
     "@matbee/libreoffice-converter": "^2.5.0",
