@@ -28,32 +28,12 @@ import { toolContentAr } from './ar';
 import { toolContentIt } from './it';
 import { ToolContent } from '@/types/tool';
 
-export type Locale = 'en' | 'ja' | 'ko' | 'es' | 'fr' | 'de' | 'zh' | 'zh-TW' | 'pt' | 'ar' | 'it';
+export type Locale = 'zh-TW';
 
 /**
  * Get tool content for a specific locale
- * Falls back to English if translation not found
+ * Only supports zh-TW
  */
 export function getToolContent(locale: Locale, toolId: string): ToolContent | undefined {
-  const contentMap: Record<string, Record<string, ToolContent>> = {
-    en: toolContentEn,
-    ja: toolContentJa,
-    ko: toolContentKo,
-    es: toolContentEs,
-    fr: toolContentFr,
-    de: toolContentDe,
-    zh: toolContentZh,
-    'zh-TW': toolContentZhTW,
-    pt: toolContentPt,
-    ar: toolContentAr,
-    it: toolContentIt,
-  };
-
-  const localeContent = contentMap[locale];
-  if (localeContent && localeContent[toolId]) {
-    return localeContent[toolId];
-  }
-
-  // Fallback to English
-  return toolContentEn[toolId];
+  return toolContentZhTW[toolId];
 }
