@@ -33,7 +33,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   // Validate locale
-  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'zh-TW';
 
   // Get localized SEO translations
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
