@@ -5,15 +5,8 @@ import type { NextRequest } from 'next/server';
 
 const intlMiddleware = createMiddleware(routing);
 
-// Locale prefixes that next-intl recognizes
-const localePattern = /^\/(en|ja|ko|es|fr|de|zh-TW|zh|pt|ar|it)(\/|$)/;
-
-/**
- * Check if Accept-Language contains any Chinese variant.
- */
-function hasChinesePreference(acceptLang: string): boolean {
-    return acceptLang.toLowerCase().includes('zh');
-}
+// Locale prefix for zh-TW
+const localePattern = /^\/(zh-TW)(\/|$)/;
 
 function addSecurityHeaders(response: NextResponse): void {
     // Required for SharedArrayBuffer (LibreOffice WASM)
@@ -25,36 +18,30 @@ function addSecurityHeaders(response: NextResponse): void {
 export default function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // 1. If user is on /zh/... path, redirect to /zh-TW/... equivalent
-    const zhMatch = pathname.match(/^\/zh(\/|$)/);
-    if (zhMatch) {
-        const rest = pathname.slice(3); // remove "/zh"
+    // Redirect any non-zh-TW locale paths to zh-TW equivalent
+    const otherLocaleMatch = pathname.match(/^\/(en|ja|ko|es|fr|de|zh|pt|ar|it)(\/|$)/);
+    if (otherLocaleMatch) {
+        const matchedLocale = otherLocaleMatch[1];
+        const rest = pathname.slice(matchedLocale.length + 1); // remove "/<locale>"
         const url = request.nextUrl.clone();
         url.pathname = `/zh-TW${rest || '/'}`;
         const response = NextResponse.redirect(url);
         addSecurityHeaders(response);
-        // Override the locale cookie to zh-TW
         response.cookies.set('NEXT_LOCALE', 'zh-TW', { path: '/' });
         return response;
     }
 
-    // 2. No locale prefix: check Accept-Language & cookie for Chinese
+    // No locale prefix: redirect to zh-TW
     if (!localePattern.test(pathname)) {
-        const acceptLang = request.headers.get('accept-language') || '';
-        const localeCookie = request.cookies.get('NEXT_LOCALE')?.value;
-
-        // If cookie is "zh" or Accept-Language has any Chinese → redirect to zh-TW
-        if (localeCookie === 'zh' || hasChinesePreference(acceptLang)) {
-            const url = request.nextUrl.clone();
-            url.pathname = `/zh-TW${pathname === '/' ? '' : pathname}`;
-            const response = NextResponse.redirect(url);
-            addSecurityHeaders(response);
-            response.cookies.set('NEXT_LOCALE', 'zh-TW', { path: '/' });
-            return response;
-        }
+        const url = request.nextUrl.clone();
+        url.pathname = `/zh-TW${pathname === '/' ? '' : pathname}`;
+        const response = NextResponse.redirect(url);
+        addSecurityHeaders(response);
+        response.cookies.set('NEXT_LOCALE', 'zh-TW', { path: '/' });
+        return response;
     }
 
-    // 3. All other cases: let next-intl handle normally
+    // zh-TW path: let next-intl handle normally
     const response = intlMiddleware(request);
     addSecurityHeaders(response);
     return response;
