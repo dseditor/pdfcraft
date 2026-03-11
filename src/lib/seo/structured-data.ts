@@ -231,17 +231,7 @@ export function generateWebPageSchema(
   locale: Locale
 ): WebPageSchema {
   const languageMap: Record<Locale, string> = {
-    en: 'en-US',
-    ja: 'ja-JP',
-    ko: 'ko-KR',
-    es: 'es-ES',
-    fr: 'fr-FR',
-    de: 'de-DE',
-    zh: 'zh-CN',
     'zh-TW': 'zh-TW',
-    pt: 'pt-BR',
-    ar: 'ar-AR',
-    it: 'it-IT',
   };
 
   return {
@@ -250,7 +240,7 @@ export function generateWebPageSchema(
     name: content.title,
     description: content.metaDescription,
     url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
-    inLanguage: languageMap[locale] || 'en-US',
+    inLanguage: languageMap[locale] || 'zh-TW',
     isPartOf: {
       '@type': 'WebSite',
       name: siteConfig.name,

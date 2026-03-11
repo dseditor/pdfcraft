@@ -252,19 +252,9 @@ export function generateContactMetadata(locale: Locale, translations?: { title: 
  */
 export function getOpenGraphLocale(locale: Locale): string {
   const ogLocaleMap: Record<Locale, string> = {
-    en: 'en_US',
-    ja: 'ja_JP',
-    ko: 'ko_KR',
-    es: 'es_ES',
-    fr: 'fr_FR',
-    de: 'de_DE',
-    zh: 'zh_CN',
     'zh-TW': 'zh_TW',
-    pt: 'pt_BR',
-    ar: 'ar_AR',
-    it: 'it_IT',
   };
-  return ogLocaleMap[locale] || 'en_US';
+  return ogLocaleMap[locale] || 'zh_TW';
 }
 
 /**

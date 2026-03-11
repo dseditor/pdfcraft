@@ -28,7 +28,7 @@ export const siteConfig = {
     titleTemplate: '%s | PDFCraft',
     defaultTitle: 'PDFCraft - Professional PDF Tools',
     twitterHandle: '@pdfcraft',
-    locale: 'en_US',
+    locale: 'zh_TW',
   },
 };
 

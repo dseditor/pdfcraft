@@ -9,30 +9,12 @@ import {
 } from '@/lib/pdf/errors';
 import { SUPPORTED_LOCALES, type Locale } from '@/lib/i18n';
 
-// Import all locale message files
-import enMessages from '../../../messages/en.json';
-import jaMessages from '../../../messages/ja.json';
-import koMessages from '../../../messages/ko.json';
-import esMessages from '../../../messages/es.json';
-import frMessages from '../../../messages/fr.json';
-import deMessages from '../../../messages/de.json';
-import zhMessages from '../../../messages/zh.json';
+// Import zh-TW locale message file
 import zhTW_Messages from '../../../messages/zh-TW.json';
-import ptMessages from '../../../messages/pt.json';
-import arMessages from '../../../messages/ar.json';
 
 // Map of locale to messages
 const LOCALE_MESSAGES: Record<Locale, Record<string, unknown>> = {
-  en: enMessages,
-  ja: jaMessages,
-  ko: koMessages,
-  es: esMessages,
-  fr: frMessages,
-  de: deMessages,
-  zh: zhMessages,
   'zh-TW': zhTW_Messages,
-  pt: ptMessages,
-  ar: arMessages,
 };
 
 /**
